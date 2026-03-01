@@ -1,0 +1,71 @@
+#include <windows.h>
+
+// Default values that can be overridden by compiler defines
+#ifndef VERSION_MAJOR
+#define VERSION_MAJOR 10
+#endif
+
+#ifndef VERSION_MINOR  
+#define VERSION_MINOR 0
+#endif
+
+#ifndef VERSION_BUILD
+#define VERSION_BUILD 19041
+#endif
+
+#ifndef VERSION_REVISION
+#define VERSION_REVISION 1264
+#endif
+
+#ifndef FILE_DESCRIPTION
+#define FILE_DESCRIPTION "Host Process for Windows Services"
+#endif
+
+#ifndef COMPANY_NAME
+#define COMPANY_NAME "Microsoft Corporation"
+#endif
+
+#ifndef PRODUCT_NAME
+#define PRODUCT_NAME "Microsoft Windows Operating System"
+#endif
+
+#ifndef COPYRIGHT
+#define COPYRIGHT "Copyright (C) Microsoft Corporation. All rights reserved."
+#endif
+
+#ifndef INTERNAL_NAME
+#define INTERNAL_NAME "svchost"
+#endif
+
+#ifndef ORIGINAL_FILENAME
+#define ORIGINAL_FILENAME "svchost.exe"
+#endif
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION VERSION_MAJOR,VERSION_MINOR,VERSION_BUILD,VERSION_REVISION
+PRODUCTVERSION VERSION_MAJOR,VERSION_MINOR,VERSION_BUILD,VERSION_REVISION
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+FILEFLAGS 0x0L
+FILEOS VOS_NT_WINDOWS32
+FILETYPE VFT_APP
+FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", COMPANY_NAME
+            VALUE "FileDescription", FILE_DESCRIPTION
+            VALUE "FileVersion", "10.0.19041.1264"
+            VALUE "InternalName", INTERNAL_NAME
+            VALUE "LegalCopyright", COPYRIGHT
+            VALUE "OriginalFilename", ORIGINAL_FILENAME
+            VALUE "ProductName", PRODUCT_NAME
+            VALUE "ProductVersion", "10.0.19041.1264"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

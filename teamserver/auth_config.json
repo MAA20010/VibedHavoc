@@ -1,0 +1,20 @@
+{
+  "database_path": "./auth.db",
+  "database_type": "sqlite",
+  "default_session_timeout": 480,
+  "max_concurrent_sessions": 5,
+  "session_cleanup_interval": 60,
+  "min_password_length": 8,
+  "require_special_chars": true,
+  "require_numbers": true,
+  "require_uppercase": true,
+  "require_lowercase": true,
+  "max_failed_attempts": 5,
+  "lockout_duration_minutes": 30,
+  "force_password_change": false,
+  "password_history_size": 5,
+  "enable_profile_fallback": true,
+  "profile_path": "./profiles",
+  "log_auth_attempts": true,
+  "log_level": "info"
+}

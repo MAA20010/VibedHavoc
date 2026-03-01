@@ -1,0 +1,83 @@
+# IDE
+*/.idea/
+.idea/
+.vscode/
+.cursor/rules/*
+
+# Build artifacts
+Client/Build/
+client/Build/
+**/cmake-build-debug/
+bin/
+
+# Compiled binaries
+Client/Havoc
+client/Havoc
+Teamserver/teamserver
+havoc
+
+# Runtime data (root only — don't match client/data/)
+/data/
+Teamserver/data/loot/
+Client/Data/database.db
+
+# Databases
+auth.db
+auth.db-wal
+auth.db-shm
+*.db
+*.db-wal
+*.db-shm
+
+# Cross-compiler toolchains
+Teamserver/data/x86_64-w64-mingw32-cross/
+
+# Go
+Teamserver/go.sum
+
+# Client modules (cloned at build time)
+client/Modules/
+
+# Backup and temporary files
+*.bak
+*.backup
+*.backup.*
+*.tmp
+*.swp
+*~
+*.bin.backup
+
+# Scratch/temp files
+DiffinBuilds.txt
+temp_apis.txt
+ReadForHashes.txt
+
+# Internal documentation (keep in private repo only)
+docs/
+
+# Internal change logs
+codeChanges/
+
+# GitHub workflows
+.github/
+
+# Log files
+*.log
+
+# Profile configs (contain operator creds, PSKs, webhook URLs)
+# Scripts (hashers, AES key gen, build-time tooling)
+scripts/
+
+# TLS/crypto material
+*.pem
+*.key
+*.crt
+*.cert
+
+# Environment files
+*.env
+*.env.*
+
+# SQLite
+*.sqlite
+*.sqlite3
